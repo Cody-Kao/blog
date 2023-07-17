@@ -1,0 +1,15 @@
+首先要執行:
+from flask import Flask
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy(匯入資料庫模組)
+
+app = Flask(__name__)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+才能在command line執行 flask db init
+
+但我把這些東西都包裹在create_app()裡面，而該檔案又不能單獨執行，而是需要透過run.py去做整個程式的執行
+所以要變成下面這行:
+python -m flask --app run.py db init
+後續的動作都要加上:
+python -m flask --app run.py db

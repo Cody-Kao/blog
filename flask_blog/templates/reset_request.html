@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content-section">
+        <form method='POST' action="">
+            {{ form.hidden_tag() }} <!-- 增加保護作用 -->
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-3">Reset Password</legend>
+                <div class="form-group">
+                    {{ form.email.label(class='form-control-label') }}
+                    {% if form.email.errors %}
+                        {{ form.email(class='form-control form-control-md mb-3 is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class='form-control form-control-md mb-3') }}
+                    {% endif %} 
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class='btn btn-outline-info mb-3 mt-3') }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
