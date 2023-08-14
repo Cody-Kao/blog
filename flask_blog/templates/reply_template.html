@@ -16,10 +16,10 @@
             <div class="col-6">
                 <!--使用者名字-->
                 <a href="{{ url_for('users.user_posts', username=comment.user.username) }}" class="comment-author me-2">{{ comment.user.username }}</a>
-                {% if comment.date_posted == comment.date_edited %}
-                <small class="m-0 text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>
-                {% else %}
+                {% if comment.date_edited %}
                 <small class="m-0 text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>&#x2022;<small class="m-0 text-muted">(已編輯) {{ moment(comment.date_edited).fromNow(refresh=True) }}</small>
+                {% else %}
+                <small class="m-0 text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>
                 {% endif %}
             </div>
             <div class="col-6 d-flex justify-content-end">
