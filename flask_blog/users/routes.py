@@ -5,8 +5,7 @@ from flask_blog.users.forms import (RegistrationForm, LoginForm, UpdateAccountFo
 from flask_blog.models import User, Post
 from flask_blog import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
-from flask_blog.users.utils import save_picture, write_reset_email, send_reset_email
-from threading import Thread
+from flask_blog.users.utils import save_picture, write_reset_email
 
 
 users = Blueprint('users', __name__)
@@ -38,6 +37,7 @@ def login():
             next_page = request.args.get('next') 
             # 如果在被叫到log in頁面之前有先進去其他網頁才被導入到這裡，則網址會有個next的參數，表示登陸後會自動導入到那裏
             # 所以這時候就要把使用者render到那個頁面，而非主頁(home)
+            flash(f'{current_user.username} log in successfully!', category='success')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash(f'Log In Unsuccessfully, Please Check Email or Password', 'danger')
@@ -73,7 +73,7 @@ def user_posts(username):
     # 找到指定的使用者
     user = User.query.filter_by(username=username).first_or_404()
     # 找出他所有的貼文
-    posts = Post.query.filter_by(user_id=user.id).order_by(Post.date_edited.desc()).paginate(page=page, per_page=1)
+    posts = Post.query.filter_by(user_id=user.id).order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)
     return render_template('user_posts.html', title = f'User-{username}', posts=posts, user=user)
 
 @users.route('/reset_password', methods=['GET', 'POST']) # 使用者申請更改密碼: 輸入電子郵件通過認證後會寄token到信箱

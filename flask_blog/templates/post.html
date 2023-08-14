@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% from 'macros.html' import generate_content, generate_reply with context %} <!--加上這行 macro才能使用context(init_app的object)-->
 {% block content %}
     <article class="media content-section">
       <div class="row">
@@ -8,33 +9,85 @@
         <div class="media-body col-10">
           <div class="article-metadata">
               <a class="user-name" href="{{ url_for('users.user_posts', username=post.author.username ) }}">{{ post.author.username }}</a>
-              <small class="text-muted">Post time: {{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-              {% if post.date_posted != post.date_edited %}
-                <small class= 'text-muted'>Edited time: {{ post.date_edited.strftime('%Y-%m-%d') }}</small>
+              <i class="far fa-eye icon-class"></i><small class='text-muted'> {{ post.view }}</small>
+              <i class='far fa-comment-dots icon-class'></i><small class='text-muted'> {{ post.comments|length }}</small>
+              <small class="text-muted">Post time: {{ moment(post.date_posted).format('LLL') }}</small>
+              {% if post.date_edited %}
+                <small class= 'text-muted'>Last Edit: {{ moment(post.date_edited).fromNow(refresh=True) }}</small>
               {% endif %}
               {% if post.author.username == current_user.username %}
                 <div>
                   <a class='btn btn-secondary btn-sm m-1 mt-3 mb-3' href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
-                  <button type='button' class='btn btn-danger btn-sm m-1' data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                  <button type='button' class='btn btn-danger btn-sm m-1' data-bs-toggle="modal" data-bs-target="#delete-post-modal">Delete</button>
                 </div>
               {% endif %}
           </div>
           <h2 class="article-title">{{ post.title }}</h2>
-          <p class="article-content">{{ post.content }}</p>
+          <p class="article-content">{{ post.content|safe }}</p>
         </div>
     </article>
-
-    <!--Model-->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <br>
+    
+    <!--Share Comment-->
+    {% if current_user.is_authenticated %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+      <div class="container bootdey">
+        <div class="col-md-12 bootstrap snippets">
+          <div class="panel">
+            <div class="panel-body">
+              <form class="mar-top clearfix" method="POSt" action="{{ url_for('comments.comment', post_id = post.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <textarea class="form-control" rows="2" placeholder="Leave a comment" name="content"></textarea>
+                <br>
+                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Share</button>
+                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
+                <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootdey">
+      <div class="col-md-12 bootstrap snippets">
+        <div class="panel">
+          <div class="panel-body">
+            <textarea disabled class="form-control" rows="2" placeholder="Log in to leave a comment!"></textarea>
+            <div class="mar-top clearfix" >
+              <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i>Share</button>
+              <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip"></a>
+              <a class="btn btn-trans btn-icon fa fa-camera add-tooltip"></a>
+              <a class="btn btn-trans btn-icon fa fa-file add-tooltip"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if comments %}
+      <div class="comment-thread">
+        <!-- Comment 1 start -->
+        {% for comment in comments%}
+          {% include 'comment_template.html' %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No Comments</p>
+    {% endif %}
+    <!--Delete Post Model-->
+    <div class="modal fade" id="delete-post-modal" tabindex="-1" aria-labelledby="delete-post-modal-label" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post?</h1>
+            <h1 class="modal-title fs-5" id="delete-post-modal-label">Delete Post?</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method='POST'>
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
               <input type="submit" class="btn btn-danger" value='Delete'> <!-- 按下去之後呼叫post request到delete_post route -->
             </form>
           </div>

@@ -1,27 +1,34 @@
 {% extends 'layout.html' %}
 {% block content %}
+    {% if posts.items %}
     {% for post in posts.items %} <!-- 因為我們用了paginate class，所以這裡的posts是個類別，要加上items的方法 -->
-    <article class="media content-section">
-      <div class="row">
-        <div class="col-1">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-        </div>
-        <div class="media-body col-10">
-          <div class="article-metadata">
-              <a class="user-name" href="{{ url_for('users.user_posts', username=post.author.username ) }}">{{ post.author.username }}</a>
-              <small class= 'text-muted'>Post time: {{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-              {% if post.date_posted != post.date_edited %}
-                <small class= 'text-muted'>Edited time: {{ post.date_edited.strftime('%Y-%m-%d') }}</small>
-              {% endif %}
+      <article class="media content-section">
+        <div class="row">
+          <div class="col-1">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
           </div>
-          <br>
-          <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content }}</p>
+          <div class="media-body col-10">
+            <div class="article-metadata">
+              <a class="user-name" href="{{ url_for('users.user_posts', username=post.author.username ) }}">{{ post.author.username }}</a>
+              <i class="far fa-eye icon-class"></i><small class='text-muted'> {{ post.view }}</small>
+              <i class='far fa-comment-dots icon-class'></i><small class='text-muted'> {{ post.comments|length }}</small>
+              <small class='text-muted'>Post time: {{ moment(post.date_posted).format('LLL') }}</small>
+              {% if post.date_posted != post.date_edited %}
+                <small class= 'text-muted'>Last Edit: {{ moment(post.date_edited).fromNow(refresh=True) }}</small>
+              {% endif %}
+            </div>
+            <br>
+            <div>
+              <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+              <p class="article-content">{{ (post.content|striptags)[:50] }}...</p>
+            </div>
+          </div>
         </div>
-      </div>
-      
-    </article>
+      </article>
     {% endfor %}
+    {% else %}
+    <h1>No Posts</h1>
+    {% endif %}
     <!-- 控制link顯示多少 right_current會包含自己，所以要加1-->
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}

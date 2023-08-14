@@ -1,0 +1,122 @@
+{% from "macros.html" import  generate_content with context %}
+<div class="comment row" id=comment-{{ comment.id }}>
+    <div class="col-1 me-2">
+        <a href="#comment-{{ comment.id }}" class="comment-border-link"></a>
+        <div class="comment-info" >
+            {% if comment.user.id == current_user.id %}
+            <img style="box-shadow: 3px 3px 8px #968004;" class="user-icon" src="{{ url_for('static', filename='profile_pics/' + comment.user.image_file) }}" alt="user-icon"> <!--使用者頭像-->
+            {% else %}
+            <img class="user-icon" src="{{ url_for('static', filename='profile_pics/' + comment.user.image_file) }}" alt="user-icon"> <!--使用者頭像-->
+            {% endif %}
+        </div>
+    </div>
+        
+    <div class="col-10 comment-content mb-3">
+        <div class="row">
+            <div class="col-6">
+                <!--使用者名字-->
+                <a href="{{ url_for('users.user_posts', username=comment.user.username) }}" class="comment-author me-2">{{ comment.user.username }}</a>
+                {% if comment.date_posted == comment.date_edited %}
+                <small class="m-0 text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>
+                {% else %}
+                <small class="m-0 text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>&#x2022;<small class="m-0 text-muted">(已編輯) {{ moment(comment.date_edited).fromNow(refresh=True) }}</small>
+                {% endif %}
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                  <!--留言資訊-->
+                <div class="comment-voting">
+                    {% if comment.id in liked_comments_id %} <!--如果此使用者有對這篇留言按讚就預先加上liked的class-->
+                    <button class="button dark liked" onClick="clicking(this,'{{current_user.is_authenticated}}'); thumb_toggle(this, '{{current_user.is_authenticated}}');">
+                        <div class="hand">
+                            <div class="thumb"></div>
+                        </div>
+                        <span>Like</span>
+                    </button>
+                    {% else %} <!--否則...-->
+                    <button class="button dark" onClick="clicking(this,'{{current_user.is_authenticated}}'); thumb_toggle(this, '{{current_user.is_authenticated}}');">
+                      <div class="hand">
+                          <div class="thumb"></div>
+                      </div>
+                      <span>Like</span>
+                    </button>
+                    {% endif %}
+                    <div class="button-wrapper">
+                        <span class="overlay-span" onClick="toggleUpdateDeleteCommentBtn(this)">&#8942;</span>
+                        <div class="update-delete-comment-btn mt-5">
+                            <!--編輯或刪除留言-->
+                            {% if comment.user.id == current_user.id %}
+                            <button onClick="editComment(this, '{{ comment.content|striptags }}', '{{ comment.post.id }}', '{{ comment.id }}')">Edit</button>
+                            <button onClick="deleteComment(this)" class="delete-btn" data-bs-toggle="modal" data-bs-target="#delete-comment-{{ comment.id }}-modal">Delete</button>
+                            {% else %}
+                            <button>Report</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+        <br>
+        <div class="comment-body">
+            {{ generate_content(comment, 5) }}
+            <br>
+            <div class="d-flex justify-content-between">
+                <div><small class="likes text-muted me-1">{{ comment.likes|length }}</small><small class="likes m-0 text-muted">likes</small></div>
+                <div>
+                    <button type="button" onClick="toggle_reply_form(this)">Reply</button>
+                </div>
+            </div>
+            
+
+            <!-- Reply form start -->
+            <div class="reply-form d-none">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> <!--如果是form要加上hidden的csrf驗證 不然會報錯-->
+                <textarea placeholder="Reply to comment" rows="4"></textarea>
+                <div style="display:flex; justify-content:flex-end; gap:8px;">
+                    <button type="submit" onClick="createReply(this, '{{ post.id }}', '{{ comment.id }}')">Submit</button>
+                    <button type="button" onClick="close_reply_form(this)">Cancel</button>
+                </div>
+            </div>
+            <!-- Reply form end -->
+        </div>
+    </div>
+
+    <div class="replies"></div>
+    <!--Cancel Edit Comment Model-->
+    <div class="modal fade" id="cancel-comment-{{ comment.id }}-modal" tabindex="-1" aria-labelledby="cancel-comment-{{ comment.id }}-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cancel-comment-{{ comment.id }}-modal-label">確認後您所做的更新將不被保存</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <form action="{{ url_for('comments.cancel_edit', post_id=comment.post.id) }}" method='POST'>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="submit" class="btn btn-danger" value='確認'>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Delete Comment Model-->
+    <div class="modal fade" id="delete-comment-{{ comment.id }}-modal" tabindex="-1" aria-labelledby="delete-comment-{{ comment.id }}-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="delete-comment-{{ comment.id }}-modal-label">確認刪除留言?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method='POST'>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="submit" class="btn btn-danger" value='確認'>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
