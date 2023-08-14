@@ -19,9 +19,19 @@
                     {% endif %} 
                 </div>
                 <div class="form-group">
+                    {% if title == 'New Post' %}
+                    {{ form.category.label(class='form-control-label') }}
+                    {{ form.category(class='selectarea form-control form-control-md mb-3') }}
+                    <div class="text-muted">Once it's set, it can not be changed</div>
+                    {% else %}
+                    {{ form.category.label(class='form-control-label') }}
+                    <div>{{ post.category }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
                     {{ form.content.label(class='form-control-label') }}
                     {% if form.content.errors %}
-                        {{ form.content(class='form-control form-control-md mb-3 is-invalid') }}
+                        {{ form.content(class='form-control-md mb-3 is-invalid') }}
                         <div class="invalid-feedback">
                             {% for error in form.content.errors %}
                                 <span>{{ error }}</span>
@@ -36,5 +46,7 @@
                 {{ form.submit(class='btn btn-outline-info mb-3 mt-3') }}
             </div>
         </form>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
     </div>
 {% endblock content %}

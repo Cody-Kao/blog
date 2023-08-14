@@ -1,0 +1,35 @@
+{% macro generate_reply(comments, initial_comments) %}
+    {% if comments|length > initial_comments %}
+        <div> <!--這個div的作用就只是把show more comments的anchor tag包住，讓他可以使用parentElement-->
+            {% for comment in comments[:initial_comments] %}
+                {% include 'comment_template.html' %}
+            {% endfor %}
+            <a class="a-btn show-more-comments" onClick="show_more_comments(this)">Show {{ comments|length - initial_comments }} More Comments</a>
+            <div class="more-comments-area hide">
+                {% for comment in comments[initial_comments:] %}
+                    {% include 'comment_template.html' %}
+                {% endfor %}
+            </div>
+            <a class="a-btn show-less-comments hide" onClick="show_less_comments(this)">Show Less Comments</a>
+        </div>
+    {% else %}
+        {% for comment in comments %}
+            {% include 'comment_template.html' %}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro generate_content(comment, initial_words) %}
+    {% with initial_words = initial_words %}
+    {% if comment.content|length > initial_words %} <!--設定內文初始字數-->
+        <div class="content-div">
+            <p class="inline-p"><span class="dots">{{ (comment.content[:initial_words]|tagify)|safe }}...</span><span class="more hide">{{ (comment.content|tagify)|safe }}</span></p>
+            <a class="a-btn" onClick="show_more_content(this)">Read More</a>
+        </div>
+    {% else %}
+        <div class="content-div">
+            <p>{{ (comment.content|tagify)|safe }}</p>
+        </div>
+    {% endif %} 
+    {% endwith %}
+{% endmacro %}

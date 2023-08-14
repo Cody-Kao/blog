@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_blog.models import User
 from flask_login import current_user
+import re
 
 class RegistrationForm(FlaskForm):
     
@@ -17,11 +18,14 @@ class RegistrationForm(FlaskForm):
     
     submit = SubmitField('Sign Up')
     
-    def validate_username(self, username): # function的名稱是個模板，讓flask能執行你新增的自定義檢查
+    def validate_username(self, username): # function的名稱是個模板(validate_{field name})，讓flask能執行你新增的自定義檢查
         user = User.query.filter_by(username=username.data).first() # 如果有找到 則回傳該user，若沒有則回傳None
         if user != None:
             raise ValidationError(f'The username {username.data} has been taken! Please choose a new one.')
-    
+        
+        if re.search('[^A-Za-z0-9_]', username.data): # 檢查名稱是否包含不合規定用字
+            raise ValidationError(f'The username {username.data} contains illegal characters! 只能接受大小寫英文(A-Z, a-z)、數字(0-9)、底線(_)')
+            
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user != None:

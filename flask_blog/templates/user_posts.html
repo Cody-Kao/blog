@@ -10,11 +10,16 @@
           <div class="media-body col-10">
             <div class="article-metadata">
                 <a class="user-name" href="{{ url_for('users.user_posts', username=post.author.username ) }}">{{ post.author.username }}</a>
-                <small class="text-muted">Post time: {{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                <i class="far fa-eye icon-class"></i><small class='text-muted'> {{ post.view }}</small>
+                <i class='far fa-comment-dots icon-class'></i><small class='text-muted'> {{ post.comment|length }}</small>
+                <small class='text-muted'>Post time: {{ moment(post.date_posted).format('LLL') }}</small>
+                {% if post.date_posted != post.date_edited %}
+                  <small class= 'text-muted'>Last Edit: {{ moment(post.date_edited).fromNow(refresh=True) }}</small>
+                {% endif %}
             </div>
             <br>
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
+            <p class="article-content">{{ (post.content|striptags)[:50] }}...</p>
           </div>
         </div>
       </article>

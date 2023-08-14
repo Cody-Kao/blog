@@ -5,7 +5,7 @@ import os
 
 class Config:
     
-    SECRET_KEY = '700e40c9b02682fdce980d75218dd9b5' # 用secrets.token_hex(16) 產出一個key
+    SECRET_KEY = os.urandom(24) # 或者也可以用secrets.token_hex(16) 產出一個key
     # 讓flash message等等功能使用上更安全, sign session cookies for protection against cookie data tampering
     # 而這個key存成環境變數會更好
     SQLALCHEMY_DATABASE_URI = 'sqlite:///sqlite.db'
@@ -19,3 +19,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') # 輸入使用者名稱(由環境變數中取得)
     
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') # 輸入密碼
+    
+    CKEDITOR_ENABLE_CSRF = True
+    
+    CKEDITOR_FILE_UPLOADER = 'posts.upload' # 因為是把這個upload endpoint設定在posts這個blueprint裡，所以要前綴

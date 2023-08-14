@@ -2,93 +2,98 @@ body {
     background: #fafafa;
     color: #333333;
     margin-top: 5rem;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    color: #444444;
-  }
-  
-  .bg-steel {
-    background-color: #5f788a;
-  }
-  
-  .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
-  }
-  
-  .site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
-  }
-  
-  .site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
-  }
-  
-  .content-section {
-    background: #ffffff;
-    padding: 10px 20px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-  }
-  
-  .article-title {
-    color: #444444;
-  }
-  
-  a.article-title:hover {
-    color: #428bca;
-    text-decoration: none;
-  }
-  
-  .article-content {
-    white-space: pre-line;
-  }
+}
 
-  .article-img {
-    height: 85px;
-    width: 85px;
-    margin-right: 16px;
-  }
-  
-  .media-body{
-    margin-left: 30px;
-  }
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
 
-  .article-metadata {
-    position: relative;
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3;
-    font-size: 24px;
-  }
-  
-  .article-metadata .user-name{
-    font-size: 28px;
-    margin-right: 8px;
-  }
+.bg-steel {
+  background-color: #5f788a;
+}
 
-  .article-metadata a:hover {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .article-svg {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-  }
-  
-  .account-img {
-    height: 125px;
-    width: 125px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
-  
-  .account-heading {
-    font-size: 2.5rem;
-  }
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+/*設定所有icon大小*/
+.icon-class{
+  font-size: 20px;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 85px;
+  width: 85px;
+  margin-right: 16px;
+}
+
+.media-body{
+  margin-left: 30px;
+}
+
+.article-metadata {
+  position: relative;
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 20px;
+}
+
+.article-metadata .user-name{
+  font-size: 28px;
+  margin-right: 8px;
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
 
 /* 讓login跟register跑到最右邊 */
 .navbar-collapse{ 
@@ -100,3 +105,502 @@ body {
 .article-title{
     text-decoration: none;
 }
+
+/* for ckeditor */
+caption{
+  text-align: center;
+}
+tr:hover td{
+  background-color:#ecde9f;
+    transition: all 0.3s ease-in-out;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+tr {
+  text-align: center;
+}
+th {
+  padding: 10px;
+}
+table tbody tr:nth-child(odd){
+  background-color: #eee
+}
+table thead {
+  background-color: rgb(144, 144, 230);
+  color: white;
+}
+
+.media-body img{
+  max-width: 100%;
+}
+
+/* comments */
+.img-sm {
+  width: 46px;
+  height: 46px;
+}
+
+.panel {
+  box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 15px;
+}
+
+.panel .panel-footer, .panel>:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.panel .panel-heading, .panel>:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.panel-body {
+  padding: 25px 20px;
+}
+
+
+.media-block .media-left {
+  display: block;
+  float: left
+}
+
+.media-block .media-right {
+  float: right
+}
+
+.media-block .media-body {
+  display: block;
+  overflow: hidden;
+  width: auto
+}
+
+.middle .media-left,
+.middle .media-right,
+.middle .media-body {
+  vertical-align: middle
+}
+
+.thumbnail {
+  border-radius: 0;
+  border-color: #e9e9e9
+}
+
+.tag.tag-sm, .btn-group-sm>.tag {
+  padding: 5px 10px;
+}
+
+.tag:not(.label) {
+  background-color: #fff;
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: 1px solid #cdd6e1;
+  font-size: 12px;
+  line-height: 1.42857;
+  vertical-align: middle;
+  -webkit-transition: all .15s;
+  transition: all .15s;
+}
+.text-muted, a.text-muted:hover, a.text-muted:focus {
+  color: #acacac;
+}
+.text-sm {
+  font-size: 0.9em;
+}
+.text-5x, .text-4x, .text-5x, .text-2x, .text-lg, .text-sm, .text-xs {
+  line-height: 1.25;
+}
+
+.btn-trans {
+  background-color: transparent;
+  border-color: transparent;
+  color: #929292;
+}
+
+.btn-icon {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+  padding: 5px 10px !important;
+}
+
+.mar-top {
+  margin-top: 15px;
+}
+
+/* this is for the sheet styling of CKEditor */
+
+.small-area{
+  width:600px;
+  height:400px;
+}
+
+caption{
+  text-align: center;
+}
+tr:hover td{
+  background-color:#ecde9f;
+    transition: all 0.3s ease-in-out;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+tr {
+  text-align: center;
+}
+th {
+  padding: 10px;
+}
+table tbody tr:nth-child(odd){
+  background-color: #eee
+}
+table thead {
+  background-color: rgb(144, 144, 230);
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: #f9f9f9;
+
+}
+button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 14px;
+  padding: 4px 8px;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+button:hover,
+button:focus,
+button:active {
+  cursor: pointer;
+  background-color: #ecf0f1;
+}
+.comment-thread {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  padding: 0 30px;
+  background-color: #fff;
+  border: 1px solid transparent; /* Removes margin collapse */
+}
+.m-0 {
+  margin: 0;
+}
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Comment */
+
+.comment {
+  position: relative;
+  margin: 20px auto;
+}
+
+.comment-voting {
+  display:inline-block;
+  width: 103px;
+  height: 50px;
+  font-size: 35px;
+}
+.comment-voting button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+}
+.comment-info {
+  display:flex;  
+  margin-left: 10px;
+  font-size: 16px;
+}
+.comment-info .user-icon{
+  width: 58px;
+  height: 55px;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+.comment-author {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  height:100%;
+  line-height:50px;
+}
+
+.comment-author-deleted {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  height:100%;
+  line-height:50px;
+}
+
+.comment-author:hover {
+  text-decoration: underline;
+}
+
+/* Adjustments for the comment border links */
+
+.comment-border-link {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 12px;
+  height: calc(100% - 50px);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-clip: padding-box;
+}
+.comment-border-link:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.replies {
+  margin-left: 28px;
+}
+
+/* this is for toggle the content of comments */
+.a-btn{
+  font-size: 18px;
+}
+
+.hide{
+  display: none;
+}
+
+.more-less{
+  display: block;
+}
+
+.inline-p{
+  display:inline;
+}
+
+/* reply button togglable form */
+.reply-form textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+   sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.d-none {
+  display: none;
+}
+
+
+/*按讚*/
+
+.button {
+  display: block;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+  background: none;
+  padding: 8px 20px 8px 24px;
+  border-radius: 9px;
+  line-height: 27px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color);
+  -webkit-tap-highlight-color: transparent;
+  transition: color .2s linear;
+  &.dark {
+      --color: #1E2235;
+      --color-hover: #F6F8FF;
+      --color-active: #fff;
+      --icon: #8A91B4;
+      --icon-hover: #BBC1E1;
+      --icon-active: #fff;
+      --background: #fff;
+      --background-hover: #171827;
+      --background-active: #275EFE;
+      --border: transparent;
+      --border-active: transparent;
+      --shadow: #{rgba(#001177, .16)};
+  }
+  &:hover {
+      --icon: var(--icon-hover);
+      --color: var(--color-hover);
+      --background: var(--background-hover);
+      --border-width: 2px;
+  }
+  &:active {
+      --scale: .95;
+  }
+  &:not(.liked) {
+      &:hover {
+          --hand-rotate: 8;
+          --hand-thumb-1: -12deg;
+          --hand-thumb-2: 36deg;
+      }
+  }
+  &.liked {
+      --span-x: 2px;
+      --span-d-o: 1;
+      --span-d-x: 0;
+      --icon: var(--icon-active);
+      --color: var(--color-active);
+      --border: var(--border-active);
+      --background: var(--background-active);
+  }
+  &:before {
+      content: '';
+      min-width: 103px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      transition: background .2s linear, transform .2s, box-shadow .2s linear;
+      transform: scale(var(--scale, 1)) translateZ(0);
+      background: var(--background);
+      box-shadow: inset 0 0 0 var(--border-width, 1px) var(--border), 0 4px 8px var(--shadow), 0 8px 20px var(--shadow);
+  }
+  .hand {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px 0 0 0;
+      background: var(--icon);
+      position: relative;
+      margin: 10px 8px 0 0;
+      transform-origin: -5px -1px;
+      transition: transform .25s, background .2s linear;
+      transform: rotate(calc(var(--hand-rotate, 0) * 1deg)) translateZ(0);
+      &:before,
+      &:after {
+          content: '';
+          background: var(--icon);
+          position: absolute;
+          transition: background .2s linear, box-shadow .2s linear;
+      }
+      &:before {
+          left: -5px;
+          bottom: 0;
+          height: 12px;
+          width: 4px;
+          border-radius: 1px 1px 0 1px;
+      }
+      &:after {
+          right: -3px;
+          top: 0;
+          width: 4px;
+          height: 4px;
+          border-radius: 0 2px 2px 0;
+          background: var(--icon);
+          box-shadow: -.5px 4px 0 var(--icon), -1px 8px 0 var(--icon), -1.5px 12px 0 var(--icon);
+          transform: scaleY(.6825);
+          transform-origin: 0 0;
+      }
+      .thumb {
+          background: var(--icon);
+          width: 10px;
+          height: 4px;
+          border-radius: 2px;
+          transform-origin: 2px 2px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          transition: transform .25s, background .2s linear;
+          transform: scale(.85) translateY(-.5px) rotate(var(--hand-thumb-1, -45deg)) translateZ(0);
+          &:before {
+              content: '';
+              height: 4px;
+              width: 7px;
+              border-radius: 2px;
+              transform-origin: 2px 2px;
+              background: var(--icon);
+              position: absolute;
+              left: 7px;
+              top: 0;
+              transition: transform .25s, background .2s linear;
+              transform: rotate(var(--hand-thumb-2, -45deg)) translateZ(0);
+          }
+      }
+  }
+  .hand,
+  span {
+      display: inline-block;
+      vertical-align: top;
+      span {
+          opacity: var(--span-d-o, 0);
+          transition: transform .25s, opacity .2s linear;
+          transform: translateX(var(--span-d-x, 4px)) translateZ(0);
+      }
+  }
+  & > span {
+      transition: transform .25s;
+      transform: translateX(var(--span-x, 4px)) translateZ(0);
+  }
+}
+
+/* 小點點 */
+.button-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0
+}
+
+.overlay-span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.update-delete-comment-btn{
+  display:flex;
+  flex-direction: column;
+  gap:5px;
+  width:70px;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.update-delete-comment-btn.expand{
+  height: 70px;
+}
+
+.update-delete-comment-btn button, input{
+  background-color:#c6c5c5;
+  font-size: 18px;
+}
+
