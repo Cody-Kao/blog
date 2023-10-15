@@ -10,7 +10,7 @@ def home():
     # 先把所有貼文依照貼文時間做由新到舊排序，再把他們分成若干頁，一頁只有X則(per_page)，目前在第page頁
     category = request.args.get('category', None) #如果沒有指定要哪個category，則顯示全部貼文
     if not category:
-        posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)
+        posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
     elif category in {'Travel', 'Food', 'Style'}:
         print(f'yes the category is: {category}')
         posts = Post.query.filter_by(category=category).order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)

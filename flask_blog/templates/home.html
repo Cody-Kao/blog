@@ -13,7 +13,7 @@
               <i class="far fa-eye icon-class"></i><small class='text-muted'> {{ post.view }}</small>
               <i class='far fa-comment-dots icon-class'></i><small class='text-muted'> {{ post.comments|length }}</small>
               <small class='text-muted'>Post time: {{ moment(post.date_posted).format('LLL') }}</small>
-              {% if post.date_posted != post.date_edited %}
+              {% if post.date_edited %}
                 <small class= 'text-muted'>Last Edit: {{ moment(post.date_edited).fromNow(refresh=True) }}</small>
               {% endif %}
             </div>

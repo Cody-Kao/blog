@@ -22,7 +22,7 @@
                     {% if title == 'New Post' %}
                     {{ form.category.label(class='form-control-label') }}
                     {{ form.category(class='selectarea form-control form-control-md mb-3') }}
-                    <div class="text-muted">Once it's set, it can not be changed</div>
+                    <div class="text-muted">Once category is set, it can not be changed</div>
                     {% else %}
                     <span class='form-control-label'>Category</span>
                     <div>{{ post.category }}</div>
