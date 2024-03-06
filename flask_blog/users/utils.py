@@ -33,10 +33,10 @@ def write_reset_email(user):
 If you did not make this request, just simply ignore it and no changes will be made!
 """
     # 特地拉一條thread跟主程式支開來專門執行寄送emial，效率快很多，因為寄送也會需要current_app
-    thr = Thread(target=send_reset_email, args=[msg]) 
+    thr = Thread(target=send_reset_email, args=[current_app._get_current_object(), msg]) 
     thr.start()
     return thr
     
-def send_reset_email(msg):
-    with current_app.app_context():
+def send_reset_email(app, msg):
+    with app.app_context():
         mail.send(msg) # 寄出郵件

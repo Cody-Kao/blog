@@ -10,11 +10,9 @@ class Config:
     # 而這個key存成環境變數會更好
     SQLALCHEMY_DATABASE_URI = 'sqlite:///sqlite.db'
     
-    MAIL_SERVER = 'smtp.googlemail.com' # 設定傳送mail的server: gmail
-    
-    MAIL_PORT = 587 # 設定port
-    
-    MAIL_USE_TLS = True # 啟用TLS
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT=465
+    MAIL_USE_SSL=True
     
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') # 輸入使用者名稱(由環境變數中取得)
     
